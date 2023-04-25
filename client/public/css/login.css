@@ -1,0 +1,59 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+#lyrow,
+#lyrow input,
+#lyrow textarea {
+    font-size: 12px;
+    font-family: 'Microsoft YaHei', '微软雅黑', MicrosoftJhengHei, '华文细黑', STHeiti, MingLiu;
+}
+
+#lyrow {
+    height: 100vh;
+    width: 100vw;
+}
+
+#lyrow div {
+    min-height: 18px;
+}
+
+#lyrow input,
+#lyrow textarea {
+    border: rgb(235, 235, 235) 1px solid;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: 0;
+}
+
+#lyrow input:hover,
+#lyrow textarea:hover {
+    border: 1px solid #6bc1f2;
+}
+
+#lyrow .hello {
+    font-weight: bolder;
+    padding: 50px 0 0 0;
+    justify-content: center;
+    display: flex !important;
+    font-size: 30px;
+}
+
+#lyrow .tip {
+    text-align: center;
+    padding: 50px 0 0 0;
+    font-size: 18px;
+}
+
+#lyrow .passwd {
+    outline: rgba(0, 0, 0, 1) solid 1px;
+    margin: 0 0 0 10px;
+}
+
+#lyrow .login {
+    background-color: rgba(233, 231, 239, 1);
+    outline: rgba(186, 202, 198, 1) solid 1px;
+    margin: 0 0 0 10px;
+    font-size: 18px;
+}
