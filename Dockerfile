@@ -18,7 +18,7 @@ RUN cd /WebApp/ \
 FROM ubuntu:18.04
 RUN apt update \
  && apt install -y xvfb mesa-utils libgl1-mesa-glx libvulkan1 vulkan-utils libvulkan-dev \
-                   fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming\
+                   fonts-droid-fallback ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming \
  && mkdir -p /home/smartview/bin \
  && ln -s /usr/lib/x86_64-linux-gnu/libnvidia-encode.so.1 /usr/lib/x86_64-linux-gnu/libnvidia-encode.so
 
