@@ -19,7 +19,7 @@ export class Sender extends LocalInputManager {
     this._corrector = new PointerCorrector(
       this._elem.videoWidth,
       this._elem.videoHeight,
-      this._elem.getBoundingClientRect()
+      this._elem
       );
 
     //since line 27 cannot complete resize initialization but can only monitor div dimension changes, line 26 needs to be reserved
@@ -115,7 +115,7 @@ export class Sender extends LocalInputManager {
     this._corrector.reset(
       this._elem.videoWidth,
       this._elem.videoHeight,
-      this._elem.getBoundingClientRect()
+      this._elem
     );
   }
   _onMouseEvent(event) {
@@ -134,8 +134,7 @@ export class Sender extends LocalInputManager {
         this._queueStateEvent(this.keyboard.currentState, this.keyboard);
       }
       // TextEvent
-      const key = event.key.charCodeAt(0);
-      this._queueTextEvent(this.keyboard, key);
+      this._queueTextEvent(this.keyboard, event);
     }
     else if(event.type == 'keyup') {
       this.keyboard.queueEvent(event);
@@ -175,8 +174,8 @@ export class Sender extends LocalInputManager {
       'event', {detail: { event: stateEvent, device: device}});
     super.onEvent.dispatchEvent(e);
   }
-  _queueTextEvent(device, character) {
-    const textEvent = TextEvent.create(device.deviceId, character, this.timeSinceStartup);
+  _queueTextEvent(device, event) {
+    const textEvent = TextEvent.create(device.deviceId, event, this.timeSinceStartup);
     const e = new CustomEvent(
       'event', {detail: { event: textEvent, device: device}});
     super.onEvent.dispatchEvent(e);
