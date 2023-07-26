@@ -4,7 +4,6 @@ import { InputRemoting } from "../module/inputremoting.js";
 export class VideoPlayer {
   constructor() {
     this.playerElement = null;
-    this.lockMouseCheck = null;
     this.videoElement = null;
     this.fullScreenButtonElement = null;
     this.inputRemoting = null;
@@ -16,9 +15,8 @@ export class VideoPlayer {
  * @param {Element} playerElement parent element for create video player
  * @param {HTMLInputElement} lockMouseCheck use checked propety for lock mouse 
  */
-  createPlayer(playerElement, lockMouseCheck) {
+  createPlayer(playerElement) {
     this.playerElement = playerElement;
-    this.lockMouseCheck = lockMouseCheck;
 
     this.videoElement = document.createElement('video');
     this.videoElement.id = 'Video';
@@ -66,20 +64,20 @@ export class VideoPlayer {
     if (document.webkitFullscreenElement || document.fullscreenElement) {
       this.playerElement.style.position = "absolute";
       this.fullScreenButtonElement.style.display = 'none';
+      
+      // if (this.lockMouseCheck.checked) {
+      //   if (document.webkitFullscreenElement.requestPointerLock) {
+      //     document.webkitFullscreenElement.requestPointerLock();
+      //   } else if (document.fullscreenElement.requestPointerLock) {
+      //     document.fullscreenElement.requestPointerLock();
+      //   } else if (document.mozFullScreenElement.requestPointerLock) {
+      //     document.mozFullScreenElement.requestPointerLock();
+      //   }
 
-      if (this.lockMouseCheck.checked) {
-        if (document.webkitFullscreenElement.requestPointerLock) {
-          document.webkitFullscreenElement.requestPointerLock();
-        } else if (document.fullscreenElement.requestPointerLock) {
-          document.fullscreenElement.requestPointerLock();
-        } else if (document.mozFullScreenElement.requestPointerLock) {
-          document.mozFullScreenElement.requestPointerLock();
-        }
-
-        // Subscribe to events
-        document.addEventListener('mousemove', this._mouseMove.bind(this), false);
-        document.addEventListener('click', this._mouseClickFullScreen.bind(this), false);
-      }
+      //   // Subscribe to events
+      //   document.addEventListener('mousemove', this._mouseMove.bind(this), false);
+      //   document.addEventListener('click', this._mouseClickFullScreen.bind(this), false);
+      // }
     }
     else {
       this.playerElement.style.position = "relative";
@@ -98,24 +96,24 @@ export class VideoPlayer {
 
   _mouseClick() {
     // Restores pointer lock when we unfocus the player and click on it again
-    if (this.lockMouseCheck.checked) {
-      if (this.videoElement.requestPointerLock) {
-        this.videoElement.requestPointerLock().catch(function () { });
-      }
-    }
+    // if (this.lockMouseCheck.checked) {
+    //   if (this.videoElement.requestPointerLock) {
+    //     this.videoElement.requestPointerLock().catch(function () { });
+    //   }
+    // }
   }
 
   _mouseClickFullScreen() {
     // Restores pointer lock when we unfocus the fullscreen player and click on it again
-    if (this.lockMouseCheck.checked) {
-      if (document.webkitFullscreenElement.requestPointerLock) {
-        document.webkitFullscreenElement.requestPointerLock();
-      } else if (document.fullscreenElement.requestPointerLock) {
-        document.fullscreenElement.requestPointerLock();
-      } else if (document.mozFullScreenElement.requestPointerLock) {
-        document.mozFullScreenElement.requestPointerLock();
-      }
-    }
+    // if (this.lockMouseCheck.checked) {
+    //   if (document.webkitFullscreenElement.requestPointerLock) {
+    //     document.webkitFullscreenElement.requestPointerLock();
+    //   } else if (document.fullscreenElement.requestPointerLock) {
+    //     document.fullscreenElement.requestPointerLock();
+    //   } else if (document.mozFullScreenElement.requestPointerLock) {
+    //     document.mozFullScreenElement.requestPointerLock();
+    //   }
+    // }
   }
 
   /**

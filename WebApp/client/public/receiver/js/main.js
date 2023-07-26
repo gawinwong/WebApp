@@ -11,14 +11,12 @@ let renderstreaming;
 /** @type {boolean} */
 let useWebSocket;
 
-const codecPreferences = document.getElementById('codecPreferences');
 const supportsSetCodecPreferences = window.RTCRtpTransceiver &&
   'setCodecPreferences' in window.RTCRtpTransceiver.prototype;
 const messageDiv = document.getElementById('message');
 messageDiv.style.display = 'none';
 
 const playerDiv = document.getElementById('player');
-const lockMouseCheck = document.getElementById('lockMouseCheck');
 const videoPlayer = new VideoPlayer();
 
 setup();
@@ -68,13 +66,11 @@ function onClickPlayButton() {
   playButton.style.display = 'none';
 
   // add video player
-  videoPlayer.createPlayer(playerDiv, lockMouseCheck);
+  videoPlayer.createPlayer(playerDiv);
   setupRenderStreaming();
 }
 
 async function setupRenderStreaming() {
-  codecPreferences.disabled = true;
-
   const signaling = useWebSocket ? new WebSocketSignaling() : new Signaling();
   const config = getRTCConfiguration();
   renderstreaming = new RenderStreaming(signaling, config);
@@ -95,15 +91,12 @@ function onConnect() {
 
 async function onDisconnect(connectionId) {
   clearStatsMessage();
-  messageDiv.style.display = 'block';
-  messageDiv.innerText = `Disconnect peer on ${connectionId}.`;
+  // messageDiv.style.display = 'block';
+  // messageDiv.innerText = `Disconnect peer on ${connectionId}.`;
 
   await renderstreaming.stop();
   renderstreaming = null;
   videoPlayer.deletePlayer();
-  if (supportsSetCodecPreferences) {
-    codecPreferences.disabled = false;
-  }
   showPlayButton();
 }
 
@@ -111,8 +104,8 @@ function setCodecPreferences() {
   /** @type {RTCRtpCodecCapability[] | null} */
   let selectedCodecs = null;
   if (supportsSetCodecPreferences) {
-    const preferredCodec = codecPreferences.options[codecPreferences.selectedIndex];
-    if (preferredCodec.value !== '') {
+    const preferredCodec = '';
+    if (preferredCodec !== '') {
       const [mimeType, sdpFmtpLine] = preferredCodec.value.split(' ');
       const { codecs } = RTCRtpSender.getCapabilities('video');
       const selectedCodecIndex = codecs.findIndex(c => c.mimeType === mimeType && c.sdpFmtpLine === sdpFmtpLine);
@@ -145,9 +138,7 @@ function showCodecSelect() {
     const option = document.createElement('option');
     option.value = (codec.mimeType + ' ' + (codec.sdpFmtpLine || '')).trim();
     option.innerText = option.value;
-    codecPreferences.appendChild(option);
   });
-  codecPreferences.disabled = false;
 }
 
 /** @type {RTCStatsReport} */
@@ -166,11 +157,11 @@ function showStatsMessage() {
       return;
     }
 
-    const array = createDisplayStringArray(stats, lastStats);
-    if (array.length) {
-      messageDiv.style.display = 'block';
-      messageDiv.innerHTML = array.join('<br>');
-    }
+    // const array = createDisplayStringArray(stats, lastStats);
+    // if (array.length) {
+    //   messageDiv.style.display = 'block';
+    //   messageDiv.innerHTML = array.join('<br>');
+    // }
     lastStats = stats;
   }, 1000);
 }
