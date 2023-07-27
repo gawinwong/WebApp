@@ -136,3 +136,4 @@ WebApp/build
 WebApp/node_modules
 WebApp/.vscode
 WebApp/.idea
+**/webserver
