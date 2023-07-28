@@ -13,8 +13,8 @@ let useWebSocket;
 
 const supportsSetCodecPreferences = window.RTCRtpTransceiver &&
   'setCodecPreferences' in window.RTCRtpTransceiver.prototype;
-const messageDiv = document.getElementById('message');
-messageDiv.style.display = 'none';
+// const messageDiv = document.getElementById('message');
+// messageDiv.style.display = 'none';
 
 const playerDiv = document.getElementById('player');
 const videoPlayer = new VideoPlayer();
@@ -125,8 +125,8 @@ function setCodecPreferences() {
 
 function showCodecSelect() {
   if (!supportsSetCodecPreferences) {
-    messageDiv.style.display = 'block';
-    messageDiv.innerHTML = `Current Browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpTransceiver/setCodecPreferences">RTCRtpTransceiver.setCodecPreferences</a>.`;
+    // messageDiv.style.display = 'block';
+    // messageDiv.innerHTML = `Current Browser does not support <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpTransceiver/setCodecPreferences">RTCRtpTransceiver.setCodecPreferences</a>.`;
     return;
   }
 
@@ -172,6 +172,6 @@ function clearStatsMessage() {
   }
   lastStats = null;
   intervalId = null;
-  messageDiv.style.display = 'none';
-  messageDiv.innerHTML = '';
+  // messageDiv.style.display = 'none';
+  // messageDiv.innerHTML = '';
 }
